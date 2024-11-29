@@ -104,7 +104,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-semibold text-gray-900">Jadwal Pendakian</h3>
+                                <h3 class="text-xl font-semibold text-gray-900 mt-2">Jadwal Pendakian</h3>
                                 <p class="text-gray-600 mt-1">Atur jadwal dan rencana pendakian Anda</p>
                             </div>
                         </div>
