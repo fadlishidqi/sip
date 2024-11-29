@@ -1,155 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register Pendaki</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register | SIPendaki</title>
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-6 text-center">Register Pendaki</h2>
-            
-            <form method="POST" action="{{ route('pendaki.register') }}">
-                @csrf
-                
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                        Username*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('username') border-red-500 @enderror"
-                        id="username" type="text" name="username" value="{{ old('username') }}" required>
-                    @error('username')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+<body class="font-['Inter']">
+   <div class="min-h-screen flex">
+       <!-- Left side -->
+       <div class="hidden lg:block lg:w-1/2 relative">
+           <img src="../images/gunung3.jpg" alt="Mountain" class="w-full h-screen object-cover">
+           <div class="absolute inset-0 bg-black bg-opacity-30">
+               <div class="p-12 absolute bottom-0 text-white">
+                   <h1 class="text-4xl font-bold mb-2">SIPendaki</h1>
+                   <p class="text-lg">Your Mountain Adventure Starts Here</p>
+               </div>
+           </div>
+       </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="nama_lengkap">
-                        Nama Lengkap*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('nama_lengkap') border-red-500 @enderror"
-                        id="nama_lengkap" type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
-                    @error('nama_lengkap')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+       <!-- Right side -->
+       <div class="w-full lg:w-1/2 overflow-y-auto h-screen">
+           <div class="max-w-md mx-auto px-6 py-12">
+               <h2 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+               <p class="text-gray-600 mb-8">Register your climbing account</p>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="nik">
-                        NIK*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('nik') border-red-500 @enderror"
-                        id="nik" type="text" name="nik" value="{{ old('nik') }}" required maxlength="16" minlength="16">
-                    @error('nik')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+               <form method="POST" action="{{ route('pendaki.register') }}" class="space-y-4">
+                   @csrf
+                   <!-- Username -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Username*</label>
+                       <input type="text" name="username" value="{{ old('username') }}" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                       @error('username')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">
-                        Jenis Kelamin*
-                    </label>
-                    <div class="mt-2">
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="jenis_kelamin" value="L" {{ old('jenis_kelamin') == 'L' ? 'checked' : '' }} required>
-                            <span class="ml-2">Laki-laki</span>
-                        </label>
-                        <label class="inline-flex items-center ml-6">
-                            <input type="radio" class="form-radio" name="jenis_kelamin" value="P" {{ old('jenis_kelamin') == 'P' ? 'checked' : '' }}>
-                            <span class="ml-2">Perempuan</span>
-                        </label>
-                    </div>
-                    @error('jenis_kelamin')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- Nama Lengkap -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap*</label>
+                       <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                       @error('nama_lengkap')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="umur">
-                        Umur*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('umur') border-red-500 @enderror"
-                        id="umur" type="number" name="umur" value="{{ old('umur') }}" required min="17">
-                    @error('umur')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- NIK -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">NIK*</label>
+                       <input type="text" name="nik" value="{{ old('nik') }}" required maxlength="16" minlength="16"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                       @error('nik')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="alamat">
-                        Alamat*
-                    </label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('alamat') border-red-500 @enderror"
-                        id="alamat" name="alamat" required rows="3">{{ old('alamat') }}</textarea>
-                    @error('alamat')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- Jenis Kelamin -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin*</label>
+                       <div class="flex gap-6">
+                           <label class="flex items-center">
+                               <input type="radio" name="jenis_kelamin" value="L" required
+                                   class="form-radio text-indigo-600" {{ old('jenis_kelamin') == 'L' ? 'checked' : '' }}>
+                               <span class="ml-2">Laki-laki</span>
+                           </label>
+                           <label class="flex items-center">
+                               <input type="radio" name="jenis_kelamin" value="P" 
+                                   class="form-radio text-indigo-600" {{ old('jenis_kelamin') == 'P' ? 'checked' : '' }}>
+                               <span class="ml-2">Perempuan</span>
+                           </label>
+                       </div>
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="no_telp">
-                        Nomor Telepon*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('no_telp') border-red-500 @enderror"
-                        id="no_telp" type="tel" name="no_telp" value="{{ old('no_telp') }}" required>
-                    @error('no_telp')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- Umur -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Umur*</label>
+                       <input type="number" name="umur" value="{{ old('umur') }}" required min="17"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                       @error('umur')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="no_telp_darurat">
-                        Nomor Telepon Darurat*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('no_telp_darurat') border-red-500 @enderror"
-                        id="no_telp_darurat" type="tel" name="no_telp_darurat" value="{{ old('no_telp_darurat') }}" required>
-                    @error('no_telp_darurat')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- Alamat -->
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Alamat*</label>
+                       <textarea name="alamat" required rows="3" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">{{ old('alamat') }}</textarea>
+                       @error('alamat')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                   </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="hubungan_darurat">
-                        Hubungan dengan Kontak Darurat*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('hubungan_darurat') border-red-500 @enderror"
-                        id="hubungan_darurat" type="text" name="hubungan_darurat" value="{{ old('hubungan_darurat') }}" required>
-                    @error('hubungan_darurat')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                   <!-- Contact Information -->
+                   <div class="space-y-4">
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon*</label>
+                           <input type="tel" name="no_telp" value="{{ old('no_telp') }}" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                           @error('no_telp')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                       </div>
 
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Password*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror"
-                        id="password" type="password" name="password" required>
-                    @error('password')
-                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon Darurat*</label>
+                           <input type="tel" name="no_telp_darurat" value="{{ old('no_telp_darurat') }}" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                           @error('no_telp_darurat')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                       </div>
 
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password_confirmation">
-                        Konfirmasi Password*
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password_confirmation" type="password" name="password_confirmation" required>
-                </div>
-                
-                <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit">
-                        Register
-                    </button>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                        href="{{ route('pendaki.login') }}">
-                        Sudah punya akun? Login
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Hubungan dengan Kontak Darurat*</label>
+                           <input type="text" name="hubungan_darurat" value="{{ old('hubungan_darurat') }}" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                           @error('hubungan_darurat')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                       </div>
+                   </div>
+
+                   <!-- Password -->
+                   <div class="space-y-4">
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Password*</label>
+                           <input type="password" name="password" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                           @error('password')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                       </div>
+
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password*</label>
+                           <input type="password" name="password_confirmation" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                       </div>
+                   </div>
+
+                   <!-- Submit -->
+                   <div class="flex items-center justify-between pt-6">
+                       <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 
+                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                           Register
+                       </button>
+                       <a href="{{ route('pendaki.login') }}" class="text-indigo-600 hover:text-indigo-500 font-medium">
+                           Already have an account?
+                       </a>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
 </body>
 </html>
