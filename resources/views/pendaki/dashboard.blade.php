@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 font-['Inter']">
+<body class="bg-gray-50 font-['Inter'] min-h-screen flex flex-col">
     <!-- Navbar -->
     <nav class="bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +31,15 @@
 
                     <!-- User Menu -->
                     <div class="flex items-center space-x-2">
-                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
-                            <span class="text-indigo-600 font-medium">{{ substr(Auth::guard('pendaki')->user()->nama_lengkap, 0, 1) }}</span>
-                        </div>
-                        <div class="text-sm">
-                            <p class="font-medium text-gray-700">{{ Auth::guard('pendaki')->user()->nama_lengkap }}</p>
-                            <p class="text-gray-500 text-xs">Pendaki</p>
-                        </div>
+                        <a href="{{ route('pendaki.profile') }}" class="flex items-center space-x-2 hover:bg-gray-50 p-2 rounded-lg">
+                            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <span class="text-indigo-600 font-medium">{{ substr(Auth::guard('pendaki')->user()->nama_lengkap, 0, 1) }}</span>
+                            </div>
+                            <div class="text-sm">
+                                <p class="font-medium text-gray-700">{{ Auth::guard('pendaki')->user()->nama_lengkap }}</p>
+                                <p class="text-gray-500 text-xs">Pendaki</p>
+                            </div>
+                        </a>
                     </div>
 
                     <!-- Logout Button -->
@@ -53,148 +55,141 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <!-- Welcome Message -->
-        <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-900">Selamat Datang, {{ Auth::guard('pendaki')->user()->nama_lengkap }}</h1>
-            <p class="text-gray-600">Kelola pendakian Anda dengan mudah</p>
-        </div>
-
-        <!-- Active Booking Alert (if exists) -->
-        @if($activeBooking = Auth::guard('pendaki')->user()->bookings()->where('status', 'confirmed')->first())
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="text-sm font-medium text-green-800">Pendakian Aktif</h3>
-                        <div class="mt-2 text-sm text-green-700">
-                            <p>Anda memiliki jadwal pendakian pada tanggal {{ date('d F Y', strtotime($activeBooking->tanggal_naik)) }}</p>
-                        </div>
-                        <div class="mt-4">
-                            <div class="-mx-2 -my-1.5 flex">
-                                <a href="{{ route('pendaki.booking.show', $activeBooking->id) }}" 
-                                   class="bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100">
-                                    Lihat Detail
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main class="flex-grow">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <!-- Welcome Message -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-gray-900">Selamat Datang, {{ Auth::guard('pendaki')->user()->nama_lengkap }}</h1>
+                <p class="text-gray-600">Kelola pendakian Anda dengan mudah</p>
             </div>
-        @endif
 
-        <!-- Menu Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Data Diri Card -->
-            <a href="{{ route('pendaki.profile') }}" class="transform transition-all hover:scale-105">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md">
-                    <div class="p-2 bg-indigo-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Data Diri</h3>
-                    <p class="text-gray-600">Kelola informasi profil dan data pribadi Anda</p>
-                </div>
-            </a>
-
-            <!-- Booking Card -->
-            <a href="{{ route('pendaki.booking') }}" class="transform transition-all hover:scale-105">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md">
-                    <div class="p-2 bg-green-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Jadwal Pendakian</h3>
-                    <p class="text-gray-600">Atur jadwal dan rencana pendakian Anda</p>
-                </div>
-            </a>
-
-            <!-- Crowding Info Card -->
-            <a href="{{ route('pendaki.crowding') }}" class="transform transition-all hover:scale-105">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md">
-                    <div class="p-2 bg-yellow-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Info Kepadatan</h3>
-                    <p class="text-gray-600">Pantau kepadatan jalur pendakian secara real-time</p>
-                </div>
-            </a>
-
-            <!-- Payment History Card -->
-            <a href="{{ route('pendaki.payment.history') }}" class="transform transition-all hover:scale-105">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md">
-                    <div class="p-2 bg-purple-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Riwayat Pembayaran</h3>
-                    <p class="text-gray-600">Lihat history pembayaran dan status transaksi Anda</p>
-                </div>
-            </a>
-
-            <!-- Status Card -->
-            <a href="{{ route('pendaki.status') }}" class="transform transition-all hover:scale-105">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md">
-                    <div class="p-2 bg-red-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Status Pendakian</h3>
-                    <p class="text-gray-600">Pantau dan perbarui status pendakian Anda</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Latest Notifications -->
-        @if(count(Auth::guard('pendaki')->user()->notifications) > 0)
-            <div class="mt-8">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Notifikasi Terbaru</h2>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-200">
-                    @foreach(Auth::guard('pendaki')->user()->notifications()->limit(5)->get() as $notification)
-                        <div class="p-4 {{ $notification->read_at ? 'bg-white' : 'bg-blue-50' }}">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    @if($notification->type === 'App\Notifications\PaymentStatusUpdated')
-                                        <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                        </svg>
-                                    @endif
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm text-gray-900">
-                                        {{ $notification->data['message'] ?? 'Status pembayaran Anda telah diperbarui' }}
-                                    </p>
-                                    <p class="text-xs text-gray-500 mt-1">
-                                        {{ $notification->created_at->diffForHumans() }}
-                                    </p>
+            <!-- Active Booking Alert (if exists) -->
+            @if($activeBooking = Auth::guard('pendaki')->user()->bookings()->where('status', 'confirmed')->first())
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-green-800">Pendakian Aktif</h3>
+                            <div class="mt-2 text-sm text-green-700">
+                                <p>Anda memiliki jadwal pendakian pada tanggal {{ date('d F Y', strtotime($activeBooking->tanggal_naik)) }}</p>
+                            </div>
+                            <div class="mt-4">
+                                <div class="-mx-2 -my-1.5 flex">
+                                    <a href="{{ route('pendaki.booking.show', $activeBooking->id) }}" 
+                                    class="bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100">
+                                        Lihat Detail
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-4 gap-6">
+                <!-- Card Jadwal Pendakian (Besar) -->
+                <div class="col-span-2 h-150 bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all">
+                    <a href="{{ route('pendaki.booking') }}" class="block h-full">
+                        <div class="flex flex-col h-full">
+                            <div class="p-2 bg-green-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Jadwal Pendakian</h3>
+                            <p class="text-gray-600">Atur jadwal dan rencana pendakian Anda</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Card-card Kanan -->
+                <div class="space-y-6 col-span-2">
+                    <!-- Info Kepadatan -->
+                    <div class="w-full bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all">
+                        <a href="{{ route('pendaki.crowding') }}" class="block">
+                            <div class="p-2 bg-yellow-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Info Kepadatan</h3>
+                            <p class="text-gray-600">Pantau kepadatan jalur pendakian secara real-time</p>
+                        </a>
+                    </div>
+
+                    <!-- Riwayat Pembayaran -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all">
+                        <a href="{{ route('pendaki.payment.history') }}" class="block">
+                            <div class="p-2 bg-purple-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Riwayat Pembayaran</h3>
+                            <p class="text-gray-600">Lihat history pembayaran dan status transaksi Anda</p>
+                        </a>
+                    </div>
+
+                    <!-- Status Pendakian -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all">
+                        <a href="{{ route('pendaki.status') }}" class="block">
+                            <div class="p-2 bg-red-100 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Status Pendakian</h3>
+                            <p class="text-gray-600">Pantau dan perbarui status pendakian Anda</p>
+                        </a>
+                    </div>
                 </div>
             </div>
-        @endif
-    </div>
+
+            <!-- Latest Notifications -->
+            @if(count(Auth::guard('pendaki')->user()->notifications) > 0)
+                <div class="mt-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Notifikasi Terbaru</h2>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-200">
+                        @foreach(Auth::guard('pendaki')->user()->notifications()->limit(5)->get() as $notification)
+                            <div class="p-4 {{ $notification->read_at ? 'bg-white' : 'bg-blue-50' }}">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        @if($notification->type === 'App\Notifications\PaymentStatusUpdated')
+                                            <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                            </svg>
+                                        @endif
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm text-gray-900">
+                                            {{ $notification->data['message'] ?? 'Status pembayaran Anda telah diperbarui' }}
+                                        </p>
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            {{ $notification->created_at->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
+    <footer class="bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="md:flex md:items-center md:justify-between">
                 <div class="flex justify-center space-x-6 md:order-2">

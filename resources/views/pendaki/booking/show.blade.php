@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Booking</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-gray-50 font-['Inter']">
+@extends('layouts.app')
+
+@section('title', 'Detail Booking')
+
+@section('content')
     <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <h1 class="text-2xl font-bold text-gray-900 mb-6">Detail Booking</h1>
@@ -59,5 +54,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

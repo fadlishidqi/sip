@@ -1,34 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Status Pembayaran | SIPendaki</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/phosphor-icons"></script>
-</head>
-<body class="bg-[#F8FAFC] font-['Plus_Jakarta_Sans']">
-    <!-- Fixed Navbar -->
-    <nav class="bg-white/80 backdrop-blur-lg border-b border-gray-200 fixed w-full z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{{ route('pendaki.dashboard') }}" class="group flex items-center text-gray-500 hover:text-indigo-600 transition-all">
-                        <i class="ph-arrow-left text-lg mr-2 transition-transform group-hover:-translate-x-1"></i>
-                        Kembali ke Dashboard
-                    </a>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white">
-                        <span class="font-medium">{{ substr(Auth::guard('pendaki')->user()->nama_lengkap, 0, 1) }}</span>
-                    </div>
-                    <span class="text-sm font-medium text-gray-700">{{ Auth::guard('pendaki')->user()->nama_lengkap }}</span>
-                </div>
-            </div>
-        </div>
-    </nav>
+@extends('layouts.app')
 
+@section('title', 'Status Pembayaran')
+
+@section('content')
     <!-- Main Content -->
     <div class="pt-20 pb-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,12 +135,13 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script>
         // Add image preview enlargement functionality if needed
         document.querySelector('img').addEventListener('click', function() {
             // Add image preview logic here
         });
     </script>
-</body>
-</html>
+@endpush

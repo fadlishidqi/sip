@@ -1,30 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Kepadatan | SIPendaki</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body class="bg-gray-50 font-['Plus_Jakarta_Sans']">
-    <!-- Navbar -->
-    <nav class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{{ route('pendaki.dashboard') }}" class="text-gray-500 hover:text-gray-700">
-                        < Kembali ke Dashboard
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-sm font-medium text-gray-500">{{ Auth::guard('pendaki')->user()->nama_lengkap }}</span>
-                </div>
-            </div>
-        </div>
-    </nav>
+@extends('layouts.app')
 
+@section('title', 'Informasi Kepadatan')
+
+@section('content')
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <h1 class="text-2xl font-bold text-gray-900 mb-6">Informasi Kepadatan Jalur Pendakian</h1>
@@ -87,7 +65,10 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('crowdingChart').getContext('2d');
         const data = @json($crowdingData);
@@ -142,5 +123,4 @@
             }
         });
     </script>
-</body>
-</html>
+@endpush
