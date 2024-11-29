@@ -95,24 +95,20 @@
             <div class="grid grid-cols-4 gap-6">
                 <!-- Card Jadwal Pendakian (Besar) -->
                 <div class="col-span-2 relative bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all">
-                    <img src="../images/gunung.jpg" alt="Mountain" class="w-full h-[400px] object-cover rounded-xl">
-                    <div class="absolute bottom-6 left-6 right-6">
-                        <a href="{{ route('pendaki.booking') }}" class="block">
-                            <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
-                                <div class="flex items-center space-x-4">
-                                    <div class="p-2 bg-green-50 rounded-full">
-                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-900">Jadwal Pendakian</h3>
-                                        <p class="text-gray-600">Atur jadwal dan rencana pendakian Anda</p>
-                                    </div>
-                                </div>
+                    <a href="{{ route('pendaki.booking') }}" class="block">
+                        <img src="../images/gunung1.jpg" alt="Mountain" class="w-full h-[400px] object-cover rounded-xl mb-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="p-2 bg-green-50 rounded-full">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
                             </div>
-                        </a>
-                    </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900">Jadwal Pendakian</h3>
+                                <p class="text-gray-600 mt-1">Atur jadwal dan rencana pendakian Anda</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
                 <!-- Card-card Kanan -->
