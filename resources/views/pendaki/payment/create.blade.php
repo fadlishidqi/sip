@@ -60,7 +60,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
-                            <img src="path/to/bca-logo.png" alt="BCA" class="h-8 mb-3">
+                            <img src="../images/bca-logo.png" alt="BCA" class="h-8 mb-3">
                             <div class="flex items-center justify-between mb-2">
                                 <p class="text-xl font-mono font-medium text-gray-900">1234567890</p>
                                 <button onclick="copyToClipboard('1234567890')" class="text-indigo-600 hover:text-indigo-700">
@@ -70,7 +70,7 @@
                             <p class="text-sm text-gray-600">a.n. Pengelola Gunung Ungaran</p>
                         </div>
                         <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
-                            <img src="path/to/mandiri-logo.png" alt="Mandiri" class="h-8 mb-3">
+                            <img src="../images/mandiri-logo.png" alt="Mandiri" class="h-8 mb-3">
                             <div class="flex items-center justify-between mb-2">
                                 <p class="text-xl font-mono font-medium text-gray-900">0987654321</p>
                                 <button onclick="copyToClipboard('0987654321')" class="text-indigo-600 hover:text-indigo-700">
@@ -118,13 +118,16 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Upload Bukti Transfer*</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-indigo-100 border-dashed rounded-xl bg-indigo-50/50 hover:bg-indigo-50 transition-colors">
                             <div class="space-y-2 text-center">
+                                <div id="preview-container" class="hidden mb-8">
+                                    <img id="preview-image" src="#" alt="Preview" class="mx-auto max-h-40 rounded-lg">
+                                </div>
                                 <i class="ph-upload-simple text-4xl text-indigo-500"></i>
                                 <div class="text-sm text-gray-600">
-                                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                    <label for="file-upload" class="relative mt-8 px-6 py-3 cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                         <span>Upload file</span>
-                                        <input id="file-upload" name="bukti_pembayaran" type="file" class="sr-only" accept="image/*" required>
+                                        <input id="file-upload" name="bukti_pembayaran" type="file" class="sr-only" accept="image/*" required onchange="previewImage(this)">
                                     </label>
-                                    <p class="pl-1">atau drag and drop</p>
+                                    <p class="pl-1 mt-6">atau drag and drop</p>
                                 </div>
                                 <p class="text-xs text-gray-500">PNG, JPG (max. 2MB)</p>
                             </div>
@@ -133,6 +136,24 @@
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+                    
+                    <script>
+                    function previewImage(input) {
+                        const preview = document.getElementById('preview-image');
+                        const container = document.getElementById('preview-container');
+                        
+                        if (input.files && input.files[0]) {
+                            const reader = new FileReader();
+                            
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                                container.classList.remove('hidden');
+                            }
+                            
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                    </script>
 
                     <button type="submit" 
                         class="w-full mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3.5 rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all">
