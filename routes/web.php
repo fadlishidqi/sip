@@ -46,8 +46,8 @@
 
       // Hiking status routes
       Route::get('/status', [StatusController::class, 'index'])->name('pendaki.status');
-      Route::post('/status/depart', [StatusController::class, 'depart'])->name('pendaki.status.depart');
-      Route::post('/status/return', [StatusController::class, 'return'])->name('pendaki.status.return');
+    Route::post('/status/depart', [StatusController::class, 'depart'])->name('pendaki.status.depart');
+    Route::post('/status/return', [StatusController::class, 'return'])->name('pendaki.status.return');
 
       Route::post('/notifications/{id}/mark-as-read', function($id) {
          Auth::guard('pendaki')->user()

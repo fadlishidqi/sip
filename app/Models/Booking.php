@@ -14,6 +14,11 @@ class Booking extends Model
         'status',
     ];
 
+    protected $casts = [
+        'tanggal_naik' => 'datetime',
+        'tanggal_turun' => 'datetime',
+    ];
+
     public function pendaki()
     {
         return $this->belongsTo(Pendaki::class, 'pendaki_id');
@@ -22,5 +27,10 @@ class Booking extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    public function hikingStatus()
+    {
+        return $this->hasOne(HikingStatus::class);
     }
 }
